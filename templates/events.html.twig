@@ -4,6 +4,8 @@
 {% set show_pagination = header_var('show_pagination', [page, events])|defined(true) %}
 {% set show_sidebar = header_var('show_sidebar', [page, events])|defined(true)  %}
 
+{{ eventsJson|json_encode }}
+
 {% block content %}
 	{% if show_breadcrumbs and config.plugins.breadcrumbs.enabled %}
 		{% include 'partials/breadcrumbs.html.twig' %}
@@ -25,11 +27,11 @@
 {#{% include 'partials/events_sidebar.html.twig' with { 'page': page.parent } %}#}
 </div>
 
-{# Render the pagination list #}
-{% if show_pagination and config.plugins.pagination.enabled and collection.params.pagination %}
-<div id="listing-footer">
-    {% include 'partials/pagination.html.twig' with { base_url: page.url, pagination: collection.params.pagination } %}
-</div>
-{% endif %}
+	{# Render the pagination list #}
+	{% if show_pagination and config.plugins.pagination.enabled and collection.params.pagination %}
+		<div id="listing-footer">
+			{% include 'partials/pagination.html.twig' with { base_url: page.url, pagination: collection.params.pagination } %}
+		</div>
+	{% endif %}
 
 {% endblock %}
